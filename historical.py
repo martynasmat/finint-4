@@ -68,14 +68,16 @@ class HistoricalData:
     def save(self):
         os.makedirs(self.save_path, exist_ok=True)
         if self.data is not None:
-            self.data.df.to_csv(
-                self.save_path +
+            filename = (self.save_path +
                 '_'.join(self.tickers) +
                 '_' + self.start.strftime("%Y-%m-%d") +
                 '_' + self.end.strftime("%Y-%m-%d") +
                 '_' + self.bar_timeframe.value +
-                ".csv"
+                ".csv")
+            self.data.df.to_csv(
+                filename
             )
+            return filename
         else:
             print("No data to save")
-            return
+            return ""
