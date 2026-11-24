@@ -1,6 +1,10 @@
 import dotenv
 import os
 from alpaca.trading.client import TradingClient
+from realtime import RealtimeData
+
+async def quote_data_handler(data):
+    print(data)
 
 def main():
     dotenv.load_dotenv()
@@ -12,6 +16,13 @@ def main():
     account = trading_client.get_account()
     print(account.equity)
     print(account.cash)
+
+    realtime_data = RealtimeData(
+        os.getenv("ALPACA_API_KEY"),
+        os.getenv("ALPACA_SECRET"),
+        "AAPL",
+    )
+    realtime_data.run()
 
 if __name__ == "__main__":
     main()
