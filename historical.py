@@ -12,7 +12,6 @@ class HistoricalData:
             api_key: str,
             api_secret: str,
             tickers: str | list[str],
-            trading_client: TradingClient,
             start: dt.datetime,
             end: dt.datetime,
             bar_data: bool = False,
@@ -26,7 +25,7 @@ class HistoricalData:
             api_key,
             api_secret,
         )
-        self.trading_client = trading_client
+        self.trading_client = TradingClient(api_key, api_secret, paper=True)
 
         # Normalize tickers because it can be a string or a list of strings
         self.tickers = [tickers] if isinstance(tickers, str) else tickers
@@ -72,7 +71,7 @@ class HistoricalData:
                 '_'.join(self.tickers) +
                 '_' + self.start.strftime("%Y-%m-%d") +
                 '_' + self.end.strftime("%Y-%m-%d") +
-                '_' + self.bar_timeframe.value +
+                ('_' + self.bar_timeframe.value if self.bar_timeframe is not None else '') +
                 ".csv")
             self.data.df.to_csv(
                 filename

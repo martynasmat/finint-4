@@ -13,11 +13,11 @@ class Account:
         )
         self.account = self.trading_client.get_account()
 
-    def get_equity(self):
-        return self.account.equity
-
-    def get_cash(self):
-        return self.account.cash
-
     def refresh(self):
         self.account = self.trading_client.get_account()
+
+    def get_account_info(self):
+        self.refresh()
+        return f"""Equity: {self.account.equity}
+Cash: {self.account.cash}
+Created: {self.account.created_at}"""
