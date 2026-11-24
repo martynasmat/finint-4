@@ -22,18 +22,6 @@ class HistoricalData:
             print("No ticker(s) provided")
             return
 
-        if not api_key or not api_secret:
-            print("A valid Alpaca API key and secret are required")
-            return
-
-        if not start or not end:
-            print("A valid start and end date are required")
-            return
-
-        if not trading_client:
-            print("No trading client provided")
-            return
-
         self.client = StockHistoricalDataClient(
             api_key,
             api_secret,
