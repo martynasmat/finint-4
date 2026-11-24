@@ -20,7 +20,7 @@ def main():
     realtime_data = RealtimeData(
         os.getenv("ALPACA_API_KEY"),
         os.getenv("ALPACA_SECRET"),
-        "AAPL",
+        "",
     )
     realtime_data.run()
 

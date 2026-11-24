@@ -8,6 +8,14 @@ class RealtimeData:
             api_secret: str,
             ticker: str,
     ):
+        if not ticker:
+            print("No ticker provided")
+            return
+
+        if not api_key or not api_secret:
+            print("A valid Alpaca API key and secret are required")
+            return
+
         self.stream = StockDataStream(
             api_key,
             api_secret,
