@@ -14,13 +14,15 @@ def main():
         paper=True,
     )
     account = trading_client.get_account()
+
     print(account.equity)
     print(account.cash)
 
     realtime_data = RealtimeData(
         os.getenv("ALPACA_API_KEY"),
         os.getenv("ALPACA_SECRET"),
-        "",
+        "qwd",
+        trading_client,
     )
     realtime_data.run()
 

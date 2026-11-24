@@ -1,5 +1,7 @@
+from alpaca.common import APIError
 from alpaca.data import Quote
 from alpaca.data.live import StockDataStream
+from alpaca.trading import TradingClient
 
 class RealtimeData:
     def __init__(
@@ -7,6 +9,7 @@ class RealtimeData:
             api_key: str,
             api_secret: str,
             ticker: str,
+            trading_client: TradingClient = None,
     ):
         if not ticker:
             print("No ticker provided")
@@ -16,11 +19,18 @@ class RealtimeData:
             print("A valid Alpaca API key and secret are required")
             return
 
+        if not trading_client:
+            print("No trading client provided")
+            return
+
         self.stream = StockDataStream(
             api_key,
             api_secret,
         )
         self.ticker = ticker
+        self.client = trading_client
+        self.asset_data = None
+
         self.ask = None
         self.bid = None
         self.mid = None
@@ -33,5 +43,11 @@ class RealtimeData:
         print(self.ask, self.bid, round(self.mid, 2))
 
     def run(self):
-        self.stream.subscribe_quotes(self.quote_handler, self.ticker)
-        self.stream.run()
+        try:
+            asset_data = self.client.get_asset(self.ticker)
+            self.asset_data = asset_data
+            self.stream.subscribe_quotes(self.quote_handler, self.ticker)
+            self.stream.run()
+        except APIError as e:
+            print(e)
+            return
