@@ -1,6 +1,5 @@
 from alpaca.trading.client import TradingClient
 
-
 class Account:
     def __init__(
             self,
