@@ -73,4 +73,5 @@ Side: {order.side.value.upper()}{('\nLimit price: ' + order.limit_price) if orde
 Qty: {order.qty}
 Filled: {order.filled_qty}
 Status: {order.status.value.upper()}
+Time-in-force: {order.time_in_force.value.upper()}
 Created At: {order.created_at}\n""")
