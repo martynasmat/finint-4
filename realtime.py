@@ -27,7 +27,7 @@ class RealtimeData:
         self.ask = data.ask_price
         self.bid = data.bid_price
         self.mid = (data.ask_price + data.bid_price) / 2
-        print(self.ask, self.bid, round(self.mid, 2))
+        print(f"Ask: {self.ask}, Bid: {self.bid}, Mid: {round(self.mid, 2)}")
 
     def run(self):
         try:
